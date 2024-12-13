@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proxy Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #212121;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #e0e0e0;
+      margin-top: 0;
+    }
+
+    form {
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+    }
+
+    div {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 14px;
+      color: #e0e0e0;
+    }
+
+    .flex-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 100px);
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #333;
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: #2b2b2b;
+      color: #e0e0e0;
+    }
+
+    input[type="checkbox"] {
+      margin-left: 5px;
+    }
+
+    button {
+      background-color: #3b7dd8;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1a5fab;
+    }
+  </style>
+</head>
+<body>
+  <form id="proxy-form">
+    <h1>Proxy Settings</h1>
+    <div class="flex-container">
+      <label for="useProxy">Use Proxy:</label>
+      <input type="checkbox" id="useProxy" name="useProxy">
+    </div>
+    <div class="flex-container">
+      <label for="proxyServer">Proxy Server:</label>
+      <input type="text" id="proxyServer" name="proxyServer">
+    </div>
+    <button type="submit">Save</button>
+  </form>
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    document.getElementById('proxy-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const useProxy = document.getElementById('useProxy').checked;
+      const proxyServer = document.getElementById('proxyServer').value;
+
+      const proxyConfig = { useProxy, proxyServer };
+
+      ipcRenderer.send('save-proxy-config', proxyConfig);
+    });
+
+    ipcRenderer.on('load-proxy-config', (event, proxyConfig) => {
+      document.getElementById('useProxy').checked = proxyConfig.useProxy;
+      document.getElementById('proxyServer').value = proxyConfig.proxyServer;
+    });
+  </script>
+</body>
+</html>

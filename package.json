@@ -1,0 +1,62 @@
+{
+  "name": "ChatGPT",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.chagpt.app",
+    "win": {
+      "target": [
+        {
+          "target": "dir",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "app.ico"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dir",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "app.icns"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "dir",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "app.png"
+    },
+    "icon": "app.ico"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "ChatGPT application",
+  "devDependencies": {
+    "electron": "^31.2.1",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "asar": "^3.2.0",
+    "socks-proxy-agent": "^8.0.4",
+    "winreg": "1.2.4"
+  }
+}
